@@ -1,6 +1,7 @@
 package com.ypring2.ioc.beanFactory;
 
-import com.ypring2.ioc.annotation.YAutowired;
+
+import com.ypring2.ioc.annotation.YResource;
 
 import java.lang.reflect.Field;
 import java.util.Map;
@@ -26,12 +27,12 @@ public class IOC {
             Field[] fields=entry.getValue().getClass().getDeclaredFields();
             for(Field field:fields){
                 //判断类里是否存在注解,如果没有则结束本次循环
-                if(!field.isAnnotationPresent(YAutowired.class)){
+                if(!field.isAnnotationPresent(YResource.class)){
                     continue;
                 }
                 //field.getAnnotation返回指定类型的元素的注释,如果不存在则返回null
-                YAutowired yAutowired=field.getAnnotation(YAutowired.class);
-                String id=yAutowired.value();
+                YResource YResource=field.getAnnotation(YResource.class);
+                String id=YResource.value();
                 //如果id是空，则按照类型进行注入
                 if("".equals(id)){
                     id=field.getType().getName();

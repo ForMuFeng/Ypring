@@ -11,8 +11,8 @@ import java.lang.annotation.Target;
  * @author: Mr.Yqy
  * @create: 2019-03-31 12:33
  **/
-@Retention(RetentionPolicy.RUNTIME)//运行时注解
-@Target(ElementType.TYPE)//注解会在class字节码文件中存在，在运行时可以通过反射获取到
+@Retention(RetentionPolicy.RUNTIME)//注解会在class字节码文件中存在，在运行时可以通过反射获取到
+@Target(ElementType.TYPE)//作用于字段上
 public @interface YComponent {
     String value() default "";
 }
