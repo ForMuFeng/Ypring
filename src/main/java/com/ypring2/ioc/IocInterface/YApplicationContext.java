@@ -9,7 +9,7 @@ public interface YApplicationContext {
     //注册
     void register();
     //实例化
-    void create();
+    void instantiation();
     //注入
     void populate();
 

@@ -38,11 +38,19 @@ public class DoRegister {
                     Register(packageName+"."+file.getName());
                 }else{
                     String className=packageName+"."+file.getName().replaceAll(".class","").trim();
-                    yac.newBean(createBean(className));
+                    Class clazz=Class.forName(className);
+                    //防止将没有注解的类加入的Bean的list中
+                    //完善的方向：等整个项目完成之后要判断是否是用于Bean类型的注解，现在采用简单的策略
+                    if(clazz.getAnnotations().length!=0){
+                        yac.newBean(createBean(className));
+
+                    }
                 }
             }
 
         }catch (UnsupportedEncodingException e){
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -60,11 +68,17 @@ public class DoRegister {
         return null;
     }
 
-
-    private static String getId(Class clazz){
+    private static  String getId(Class clazz){
         if(clazz.isAnnotationPresent(YComponent.class)){
             YComponent yComponent=(YComponent) clazz.getAnnotation(YComponent.class);
-            return yComponent.value();
+            if(!yComponent.value().equals("")){
+                return yComponent.value();
+            }
+            else if(yComponent.value().equals("")){
+                return clazz.getName();
+            }else {
+                return "";
+            }
         }else{
             return null;
         }

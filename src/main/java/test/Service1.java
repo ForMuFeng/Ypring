@@ -8,7 +8,7 @@ import com.ypring2.ioc.annotation.YComponent;
  * @author: Mr.Yqy
  * @create: 2019-03-31 19:39
  **/
-@YComponent("service1")
+@YComponent
 public class Service1 {
     public void say(){
         System.out.println("这里是Service1");

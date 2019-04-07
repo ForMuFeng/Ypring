@@ -2,7 +2,7 @@ package test;
 
 import com.ypring2.ioc.ApplicationContext.AnnotationYApplicationContext;
 import com.ypring2.ioc.annotation.YComponent;
-import com.ypring2.ioc.annotation.YResource;
+import com.ypring2.ioc.annotation.YAutowired;
 
 /**
  * @program: ypring20
@@ -12,10 +12,10 @@ import com.ypring2.ioc.annotation.YResource;
  **/
 @YComponent("controller")
 public class Controller {
-    @YResource("service")
+    @YAutowired("233")
     Service service;
 
-    @YResource("service1")
+    @YAutowired
     Service1 service1;
 
     public void say(){

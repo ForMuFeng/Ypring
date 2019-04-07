@@ -2,9 +2,9 @@ package com.ypring2.ioc.ApplicationContext;
 
 import com.ypring2.ioc.IocInterface.YApplicationContext;
 import com.ypring2.ioc.beanFactory.Bean;
-import com.ypring2.ioc.beanFactory.DoPopulate;
+import com.ypring2.ioc.beanFactory.DoInstantiation;
 import com.ypring2.ioc.beanFactory.DoRegister;
-import com.ypring2.ioc.beanFactory.IOC;
+import com.ypring2.ioc.beanFactory.DoPopulate;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -23,7 +23,6 @@ public class AnnotationYApplicationContext implements YApplicationContext {
     private  static Map<String,Object> IocBeans=new ConcurrentHashMap<String, Object>();
     private  static List<Bean> beans=new ArrayList<Bean>();
     Properties config=new Properties();
-    InputStream ips=null;
     public AnnotationYApplicationContext(String configFileName){
         try{
             //获取配置文件
@@ -31,8 +30,8 @@ public class AnnotationYApplicationContext implements YApplicationContext {
             //注册
             register();
             //实例化
-            create();
-            //ioc
+            instantiation();
+            //注入
             populate();
 
         }catch (Exception e){
@@ -57,14 +56,14 @@ public class AnnotationYApplicationContext implements YApplicationContext {
         doRegister.register();
     }
 
-    public void create() {
-        DoPopulate doPopulate=new DoPopulate(this);
-        doPopulate.creat(beans);
+    public void instantiation() {
+        DoInstantiation doInstantiation=new DoInstantiation(this);
+        doInstantiation.creat(beans);
     }
 
     public void populate() {
-        IOC ioc=new IOC();
-        ioc.doIoc(IocBeans);
+        DoPopulate populate=new DoPopulate();
+        populate.doIoc(IocBeans);
     }
 
     public void newBean(Bean bean) {
